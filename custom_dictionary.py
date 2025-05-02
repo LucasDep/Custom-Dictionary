@@ -1,4 +1,5 @@
 import threading
+from typing import List
 
 class TrieNode:
     def __init__(self):
@@ -32,3 +33,23 @@ class CustomDictionary:
                 node = node.children[char]
 
             return node.is_end_of_word
+        
+    #Depth-First Search
+    def _dfs(self, node: TrieNode, prefix: str, results: List[str]):
+        if node.is_end_of_word:
+            results.append(prefix)
+
+        for char, next_node in node.children.items():
+            self._dfs(next_node, prefix + char, results)
+
+    def auto_complete(self, prefix: str) -> List[str]:
+        with self.lock:
+            node = self.root
+            for char in prefix:
+                if char not in node.children:
+                    return []
+                node = node.children[char]
+
+            results = []
+            self._dfs(node, prefix, results)
+            return results
