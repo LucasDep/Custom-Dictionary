@@ -4,7 +4,7 @@ def main():
     dictionary = CustomDictionary()
     
     print("\n=== Custom Dictionary CLI ===")
-    print("Commands: add <word> | search <word> | autocomplete <word> | exit")
+    print("Commands: \n| add <word> \n| search <word> \n| autocomplete <word> \n| remove <word> \n| exit")
     
     while True:
         try:
@@ -39,9 +39,18 @@ def main():
                         prefix = parts[1]
                         suggestions = dictionary.auto_complete(prefix)
                         print(f"📚 Suggestions for '{prefix}': {suggestions}")
+                
+                case 'remove':
+                    if validate_input(parts, command):
+                        word = parts[1]
+                        success = dictionary.remove_word(word)
+                        if success:
+                            print(f"🗑️ Successfully removed '{word}'.")
+                        else:
+                            print(f"⚠️ Word '{word}' not found to remove.")
 
                 case _:
-                    print("⚠️ Invalid command or wrong number of arguments.")
+                    print("⚠️ Invalid command.")
 
         except KeyboardInterrupt:
             print("\nGoodbye!")

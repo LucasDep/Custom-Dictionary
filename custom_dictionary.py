@@ -53,3 +53,36 @@ class CustomDictionary:
             results = []
             self._dfs(node, prefix, results)
             return results
+    
+    def remove_word(self, word: str) -> bool:
+        with self.lock:
+            self._was_removed = False
+            self._remove_word_helper(self.root, word, 0)
+            return self._was_removed
+
+    def _remove_word_helper(self, node, word, index):
+        # Base case: reached end of word
+        if index == len(word):
+            if not node.is_end_of_word:
+                return False
+            node.is_end_of_word = False
+            self._was_removed = True
+            # If node has no children, tell the parent it's safe to delete this node
+            return len(node.children) == 0
+
+        # Get the current character in the word
+        char = word[index]
+        child = node.children.get(char)
+        # If word not in dictionary
+        if not child:
+            return False 
+
+        # Recurse deeper into the Trie
+        should_delete_child = self._remove_word_helper(child, word, index + 1)
+
+        if should_delete_child:
+            del node.children[char] # Clean up unused node
+
+        # Let parent know whether *this* node is deletable:
+        # Only if it's not the end of another word AND it has no children
+        return not node.is_end_of_word and len(node.children) == 0
