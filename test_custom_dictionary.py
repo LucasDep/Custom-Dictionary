@@ -63,12 +63,12 @@ class TestCustomDictionary(unittest.TestCase):
 
         # Spawns 5 threads that run "worker()" at the same time on the same dictionary instance
         for _ in range(5):
-            t = threading.Thread(target=worker, args=(self.dictionary, words, ["word"]))
-            threads.append(t)
-            t.start()
+            thread = threading.Thread(target=worker, args=(self.dictionary, words, ["word"]))
+            threads.append(thread)
+            thread.start()
 
-        for t in threads:
-            t.join()
+        for thread in threads:
+            thread.join()
 
         # Check that all added words (except "word") are present
         self.assertTrue(self.dictionary.search_word("thread"))
@@ -77,7 +77,6 @@ class TestCustomDictionary(unittest.TestCase):
         self.assertTrue(self.dictionary.search_word("concurrent"))
         # Check that "word" is not present
         self.assertFalse(self.dictionary.search_word("word"))
-
 
 if __name__ == '__main__':
     unittest.main()
