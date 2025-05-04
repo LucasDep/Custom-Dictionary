@@ -6,6 +6,8 @@ This project is a thread-safe, in-memory dictionary that allows you to:
 - Search for words
 - Auto-complete words by prefix
 - Remove words
+- Save the dictionary to a file
+- Load the dictionary from a file
 - Interact with a simple Command-Line Interface (CLI)
 
 Built entirely in Python — no external libraries required.

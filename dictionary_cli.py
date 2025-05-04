@@ -4,11 +4,11 @@ def main():
     dictionary = CustomDictionary()
     
     print("\n=== Custom Dictionary CLI ===")
-    print("Commands: \n| add <word> \n| search <word> \n| autocomplete <word> \n| remove <word> \n| exit")
+    print("Commands: \n| add <word> \n| search <word> \n| autocomplete <word> \n| remove <word> \n| save <filename> \n| load <filename> \n| exit")
     
     while True:
         try:
-            command = input("\nEnter command: ").strip()
+            command = input("\nEnter command: ").strip().lower()
 
             if not command:
                 continue
@@ -48,6 +48,18 @@ def main():
                             print(f"🗑️ Successfully removed '{word}'.")
                         else:
                             print(f"⚠️ Word '{word}' not found to remove.")
+
+                case 'save':
+                    if validate_input(parts, command):
+                        filename = parts[1]
+                        dictionary.save_to_file(filename)
+                        print(f"💾 Dictionary saved to '{filename}'.")
+                
+                case 'load':
+                    if validate_input(parts, command):
+                        filename = parts[1]
+                        dictionary.load_from_file(filename)
+                        print(f"📂 Dictionary loaded from '{filename}'.")
 
                 case _:
                     print("⚠️ Invalid command.")
