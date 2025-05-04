@@ -9,6 +9,7 @@ This project is a thread-safe, in-memory dictionary that allows you to:
 - Save the dictionary to a file
 - Load the dictionary from a file
 - Unit testing (via `unittest`)
+- Stress Unit testing (via `unittest`)
 - Interact with a simple Command-Line Interface (CLI)
 
 Built entirely in Python — no external libraries required.
@@ -24,11 +25,24 @@ python custom_dictionary.py
 ## 🧪 How to Run Unit Tests
 This project uses Python’s built-in unittest. No installation needed.
 
-### 📦 Run Unit Tests
+### 📦 Run Unit Tests (Simple)
 
 ```bash
 python test_custom_dictionary.py
 ```
+
+### ⚡ Run Unit Tests (Stress)
+
+```bash
+python test_custom_dictionary_stress.py
+```
+
+### ▶️ Run with Discovery (If you have multiple test files)
+
+```bash
+python -m unittest discover
+```
+
 ---
 
 ## 🚀 Console input examples for each Feature
