@@ -12,14 +12,14 @@ This project is a thread-safe, in-memory dictionary that allows you to:
 - Stress Unit testing (via `unittest`)
 - Interact with a simple Command-Line Interface (CLI)
 
-Built entirely in Python — no external libraries required.
+Built entirely in Python (Python 3.7+ needed) — no external libraries required.
 
 ---
 
 ## ▶️ How to Run the Program
 
 ```bash
-python custom_dictionary.py
+python dictionary_cli.py
 ```
 
 ## 🧪 How to Run Unit Tests
