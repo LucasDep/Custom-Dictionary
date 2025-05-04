@@ -15,46 +15,56 @@ Built entirely in Python — no external libraries required.
 
 ---
 
-## 🚀 Features
+## ▶️ How to Run the Program
+
+```bash
+python custom_dictionary.py
+```
+
+## 🧪 How to Run Unit Tests
+This project uses Python’s built-in unittest. No installation needed.
+
+### 📦 Run Unit Tests
+
+```bash
+python test_custom_dictionary.py
+```
+---
+
+## 🚀 Console input examples for each Feature
 
 ### ✅ Add a Word
-```python
-dictionary.add_word("cat")
+```bash
 add cat
 ```
 
 ### 🔍 Search a Word
-```python
-dictionary.search_word("cat") # Returns True/False
+```bash
 search cat  # Returns True/False
 ```
 
 ### 🤖 Auto-complete
-```python
-dictionary.auto_complete("ca")  # e.g., ['cat', 'car', 'carbon']
+```bash
 autocomplete ca # e.g., ['cat', 'car', 'carbon']
 ```
 
 ### ❌ Remove a Word
-```python
-dictionary.remove_word("cat")  # Returns True if removed
+```bash
 remove cat  # Returns True if removed
 ```
 
 ### 💾 Save to File
-```python
-dictionary.save_to_file("my_dict.txt")
+```bash
 save my_dict.txt
 ```
 
 ### 📂 Load from File
-```python
-dictionary.load_from_file("my_dict.txt")
+```bash
 load my_dict.txt
 ```
 
 ### 🚪 Exit the Program
-```python
+```bash
 exit
 ```
 
