@@ -88,7 +88,8 @@ exit
 
 ```bash
 Custom-Dictionary/
-├── custom_dictionary.py        # Core dictionary logic (thread-safe)
-├── test_custom_dictionary.py   # Unit tests
-├── dictionary_cli.py           # Command-Line Interface (CLI) app
-├── README.md                   # (this file)
+├── custom_dictionary.py                # Core dictionary logic (thread-safe)
+├── test_custom_dictionary.py           # Unit tests
+├── test_custom_dictionary_stress.py    # Stress Unit tests
+├── dictionary_cli.py                   # Command-Line Interface (CLI) app
+├── README.md                           # (this file)
