@@ -34,33 +34,37 @@ class CustomDictionary:
 
             return node.is_end_of_word
         
-    #Depth-First Search
-    def _dfs(self, node: TrieNode, prefix: str, results: List[str]):
+    #Depth-First Search    
+    def _dfs(self, node, path, results):
         if node.is_end_of_word:
-            results.append(prefix)
-
-        for char, next_node in node.children.items():
-            self._dfs(next_node, prefix + char, results)
+            results.append("".join(path))
+        for char, child in node.children.items():
+            self._dfs(child, path + [char], results)
 
     def auto_complete(self, prefix: str) -> List[str]:
         with self.lock:
             node = self.root
             for char in prefix:
                 if char not in node.children:
-                    return []
+                    return []   # Prefix not found
                 node = node.children[char]
 
             results = []
-            self._dfs(node, prefix, results)
+            self._dfs(node, list(prefix), results)
             return results
     
     def remove_word(self, word: str) -> bool:
+        """Removes a word from the Trie. Returns True if removed, False if not found."""
         with self.lock:
             self._was_removed = False
             self._remove_word_helper(self.root, word, 0)
             return self._was_removed
 
     def _remove_word_helper(self, node, word, index):
+        """
+        Recursively removes a word from the Trie.
+        Returns True if the current node can be safely deleted.
+        """
         # Base case: reached end of word
         if index == len(word):
             if not node.is_end_of_word:
@@ -77,7 +81,7 @@ class CustomDictionary:
         if not child:
             return False 
 
-        # Recurse deeper into the Trie
+        # Recurse to the next character
         should_delete_child = self._remove_word_helper(child, word, index + 1)
 
         if should_delete_child:
@@ -86,3 +90,24 @@ class CustomDictionary:
         # Let parent know whether *this* node is deletable:
         # Only if it's not the end of another word AND it has no children
         return not node.is_end_of_word and len(node.children) == 0
+
+    def _collect_all_words(self) -> list[str]:
+        results = []
+        self._dfs(self.root, [], results)
+        return results
+
+    def save_to_file(self, filename: str):
+        with self.lock:
+            # Get all words
+            words = self._collect_all_words()
+            with open(filename, 'w') as f:
+                for word in words:
+                    f.write(f"{word}\n")
+
+    def load_from_file(self, filename: str):
+        with self.lock:
+            with open(filename, 'r') as f:
+                for line in f:
+                    word = line.strip()
+                    if word:
+                        self.add_word(word)
